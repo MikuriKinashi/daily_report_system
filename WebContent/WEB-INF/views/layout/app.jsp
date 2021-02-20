@@ -8,24 +8,43 @@
     <head>
         <meta charset="UTF-8">
         <title>日報管理システム</title>
-
-        <!-- linkを使ってcssファイルを読み込む -->
         <link rel="stylesheet" href="<c:url value='/css/reset.css' />">
         <link rel="stylesheet" href="<c:url value='/css/style.css' />">
-
     </head>
     <body>
         <div id="wrapper">
             <div id="header">
-                <h1>日報管理システム</h1>
-            </div>
+                <div id="header_menu">
+                    <h1><a href="<c:url value='/' />">日報管理システム</a></h1>
+                    <nav>
+                        <ul class="main-nav">
+                            <c:if test="${sessionScope.login_employee != null}">
+                                <c:if test="${sessionScope.login_employee.admin_flag == 1}">
+                                    <li><a href="<c:url value='/employees/index' />">従業員管理</a></li>
+                                </c:if>
+                                <li><a href="<c:url value='/reports/index' />">日報管理</a></li>
+                            </c:if>
+                        </ul>
+                    </nav>
+                </div>
 
+
+                <c:if test="${sessionScope.login_employee != null}">
+                    <div id="employee_name">
+                        <nav>
+                            <ul class="sub-nav">
+                                <li><c:out value="${sessionScope.login_employee.name}" />&nbsp;さん</li>
+                                <li><a href="<c:url value='/logout' />">ログアウト</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </c:if>
+            </div>
             <div id="content">
                 ${param.content}
             </div>
-
             <div id="footer">
-                by Mikuri Moriyama.
+                by Taro Kirameki.
             </div>
         </div>
     </body>
